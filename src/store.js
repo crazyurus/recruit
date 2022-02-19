@@ -11,10 +11,11 @@ const store = createStore({
     };
   },
   actions: {
-    async getList(context) {
+    async getList(context, payload = {}) {
       const result = await getSeminarList({
         page: context.state.page,
         left: context.state.left,
+        search: payload.search,
       });
 
       context.commit('saveList', result);
@@ -23,6 +24,11 @@ const store = createStore({
     },
   },
   mutations: {
+    resetList(state) {
+      state.list = [];
+      state.page = 1;
+      state.left = 0;
+    },
     saveList(state, payload) {
       state.left = payload.left;
       state.page++;

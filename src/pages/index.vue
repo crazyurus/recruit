@@ -1,9 +1,12 @@
 <script>;
 import tokenCompany from '../components/company.vue';
 
+let lock = false;
+
 export default {
   data() {
     return {
+      search: '',
       showPreloader: true,
     };
   },
@@ -21,20 +24,40 @@ export default {
     },
   },
   methods: {
-    loadMore() {
-      this.$store.dispatch('getList').then(more => {
-        this.showPreloader = more;
+    search(e) {
+      //const { value } = e.target;
+      console.log(e)
+
+      // this.search = value;
+      // this.$store.commit('resetList');
+      // this.loadMore();
+      // console.log(value)
+    },
+    async loadMore() {
+      if (lock) return;
+      lock = true;
+
+      const more = await this.$store.dispatch('getList', {
+        search: this.search,
       });
+
+      this.showPreloader = more;
+      lock = false;
     },
   },
 };
 </script>
 
 <template>
-  <f7-page infinite :infinite-distance="40" :infinite-preloader="showPreloader" @infinite="loadMore">
+  <f7-page
+    infinite 
+    :infinite-distance="40"
+    :infinite-preloader="showPreloader"
+    @infinite="loadMore"
+  >
     <f7-searchbar
       disable-button-text="取消"
-      placeholder="职位 / 公司名"
+      placeholder="职位/公司名"
       :clear-button="true"
     ></f7-searchbar>
     <div class="container">

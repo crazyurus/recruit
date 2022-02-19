@@ -33,20 +33,28 @@ export default {
 }
 
 .card-footer {
+  min-height: 0;
   padding: 8px 16px;
   background-color: #f3f5f7;
 }
 </style>
 
 <style lang="less" scoped>
-.company:active {
-  transform: scale(.97) translate3d(0, 0, 0);
+.company {
+  transition: transform .2s;
+  will-change: transform;
+  transform-origin: center center;
+  user-select: none;
+
+  &:active {
+    transform: scale(.97) translate3d(0, 0, 0);
+  }
 }
 
 .header {
   display: flex;
   position: relative;
-  height: 110px;
+  height: 120px;
   align-items: center;
   justify-content: center;
   color: #fff;

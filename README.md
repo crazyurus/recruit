@@ -1,7 +1,12 @@
-# Vue 3 + Vite
+# 就业招聘
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0c412841-9d3c-4625-aa20-007e93ac849c/deploy-status)](https://app.netlify.com/sites/whut-recruit/deploys)
 
-## Recommended IDE Setup
+掌上理工大就业招聘模块
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+`Vue` + `Vuex` + `Framework7` + `Vite`
+
+## 项目脚本
+
+* `npm run start` - 本地运行项目
+* `npm run build` - 打包项目
