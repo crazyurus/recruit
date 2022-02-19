@@ -11,22 +11,29 @@ const store = createStore({
     };
   },
   actions: {
-    async getList(context, payload) {
-      const { left, list } = await getSeminarList({
+    async getList(context) {
+      const result = await getSeminarList({
         page: context.state.page,
         left: context.state.left,
       });
 
-      context.commit('saveList', {
-
-      });
+      context.commit('saveList', result);
     },
   },
   mutations: {
-    increment(state) {
-      state.count++
-    }
-  }
+    saveList(state, payload) {
+      state.left = payload.left;
+      state.page++;
+      state.list = state.list.concat(payload.list.map(item => {
+        state.items.set(item.id, {
+          ...state.items.get(item.id),
+          ...item,
+        });
+
+        return item.id;
+      }));
+    },
+  },
 });
 
 export default store;

@@ -17,6 +17,9 @@ instance.interceptors.request.use(config => {
     login_admin_school_id: 'b525083d-b83c-4c7e-892f-29909421d961',
   });
 
+  const query = new URLSearchParams(config.data);
+  config.data = query.toString();
+
   return config;
 });
 

@@ -28,6 +28,6 @@ export async function getSeminarList(options) {
         isInProgress: item.timestatus === 1,
       };
     }),
-    left: left + (list.length % colorArray.length),
+    left: left + (data.list.length % colorArray.length),
   };
 }
