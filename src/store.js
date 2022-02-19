@@ -18,6 +18,8 @@ const store = createStore({
       });
 
       context.commit('saveList', result);
+
+      return result.list.length > 0;
     },
   },
   mutations: {
