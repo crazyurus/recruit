@@ -41,3 +41,11 @@ export async function getSeminarList(options) {
     left: left + (data.list.length % colorArray.length),
   };
 }
+
+export async function getSeminarDetail(options) {
+  const { id } = options;
+  const data = await request('/preach/detail', {
+    id,
+  });
+  console.log(data);
+}

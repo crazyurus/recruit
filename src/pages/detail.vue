@@ -1,15 +1,19 @@
-<script>
-import { f7Page } from 'framework7-vue';
-
+<script>;
 export default {
-  components: {
-    f7Page,
+  props: ['id'],
+  created() {
+    console.log(this.$props)
+    this.$store.dispatch('getSeminarDetail', {
+      id: this.$props.id,
+    });
+  },
+  methods: {
   },
 };
 </script>
 
 <template>
   <f7-page>
-    <div>123</div>
+
   </f7-page>
 </template>

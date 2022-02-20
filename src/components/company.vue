@@ -1,11 +1,19 @@
 <script>
 export default {
   props: ['id', 'index', 'title', 'backgroundColor', 'company', 'time', 'address', 'status', 'university', 'view'],
+  emits: ['click'],
+  methods: {
+    click() {
+      this.$emit('click', {
+        id: this.$props.id,
+      });
+    },
+  },
 };
 </script>
 
 <template>
-  <f7-card class="company">
+  <f7-card class="company" @click="click">
     <template v-slot:header>
       <div class="header" :style="{ backgroundColor }">
         <div class="header-no">No.{{index}}</div>

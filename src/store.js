@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { getSeminarList } from './service';
+import { getSeminarList, getSeminarDetail } from './service';
 
 const store = createStore({
   state() {
@@ -22,6 +22,12 @@ const store = createStore({
 
       return result.list.length > 0;
     },
+    async getSeminarDetail(context, payload) {
+      const result = await getSeminarDetail({
+        id: payload.id,
+      });
+      console.log(result);
+    }
   },
   mutations: {
     resetList(state) {

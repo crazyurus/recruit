@@ -4,6 +4,9 @@ import tokenCompany from '../components/company.vue';
 let lock = false;
 
 export default {
+  props: {
+    f7router: Object,
+  },
   data() {
     return {
       search: '',
@@ -42,6 +45,9 @@ export default {
       this.showPreloader = more;
       lock = false;
     },
+    openDetail(options) {
+      this.$props.f7router.navigate('/detail/' + options.id);
+    },
   },
 };
 </script>
@@ -75,6 +81,7 @@ export default {
         :university="item.university"
         :view="item.view"
         :backgroundColor="item.backgroundColor"
+        @click="openDetail"
       />
     </div>
   </f7-page>
