@@ -15,7 +15,12 @@ export default {
     <template v-slot:content>
       <div class="content">
         <div class="content-title">{{title}}</div>
-        <div class="content-line">{{time}}</div>
+        <div class="content-line">
+          <span>{{time}}</span>
+          <span v-if="status === 1" class="card-content-tag tag-info">进行中</span>
+          <span v-else-if="status === 2" class="card-content-tag tag-warning">已取消</span>
+          <span v-else-if="status === 3" class="card-content-tag tag-danger">已结束</span>
+        </div>
         <div class="content-line">{{address}}</div>
       </div>
     </template>
@@ -61,6 +66,8 @@ export default {
 
   &-title {
     font-size: 16px;
+    margin: 0 16px;
+    text-align: center;
   }
 
   &-no {
@@ -88,5 +95,32 @@ export default {
       margin-bottom: 0;
     }
   }
+}
+
+.card-content-tag {
+  background-color: #000;
+  color: #fff;
+  border-radius: 3px;
+  margin-left: 10px;
+  padding: 1px 5px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.tag-success {
+  background: #5cb85c;
+}
+
+.tag-danger {
+  background: #d9534f;
+}
+
+.tag-warning {
+  background: #f0ad4e;
+}
+
+.tag-info {
+  background: #45c8dc;
 }
 </style>

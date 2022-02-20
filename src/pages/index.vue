@@ -24,14 +24,12 @@ export default {
     },
   },
   methods: {
-    search(e) {
-      //const { value } = e.target;
-      console.log(e)
+    loadSearch(e) {
+      const { value } = e.target;
 
-      // this.search = value;
-      // this.$store.commit('resetList');
-      // this.loadMore();
-      // console.log(value)
+      this.search = value;
+      this.$store.commit('resetList');
+      this.loadMore();
     },
     async loadMore() {
       if (lock) return;
@@ -59,6 +57,9 @@ export default {
       disable-button-text="取消"
       placeholder="职位/公司名"
       :clear-button="true"
+      @search="loadSearch"
+      @click:clear="loadSearch"
+      @click:disable="loadSearch"
     ></f7-searchbar>
     <div class="container">
       <token-company
@@ -70,6 +71,7 @@ export default {
         :company="item.company"
         :address="item.address"
         :time="item.time"
+        :status="item.status"
         :university="item.university"
         :view="item.view"
         :backgroundColor="item.backgroundColor"
