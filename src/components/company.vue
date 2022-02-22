@@ -17,7 +17,7 @@ export default {
     <template v-slot:header>
       <div class="header" :style="{ backgroundColor }">
         <div class="header-no">No.{{index}}</div>
-        <div class="header-title">{{company}}</div>
+        <div class="header-title">{{company.name}}</div>
       </div>
     </template>
     <template v-slot:content>

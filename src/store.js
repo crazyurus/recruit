@@ -26,7 +26,8 @@ const store = createStore({
       const result = await getSeminarDetail({
         id: payload.id,
       });
-      console.log(result);
+
+      context.commit('saveDetail', result);
     }
   },
   mutations: {
@@ -46,6 +47,9 @@ const store = createStore({
 
         return item.id;
       }));
+    },
+    saveDetail(state, payload) {
+      state.items.set(payload.id, payload);
     },
   },
 });

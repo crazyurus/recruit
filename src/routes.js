@@ -1,7 +1,9 @@
+import IndexPage from './pages/index.vue';
+
 const routes = [
   {
     path: '/',
-    asyncComponent: () => import('./pages/index.vue'),
+    component: IndexPage,
   },
   {
     path: '/detail/:id',

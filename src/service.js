@@ -1,4 +1,5 @@
 import request from './utils/request';
+import { unique } from './utils/utils';
 
 function getStatus(status) {
   if (status.isInProgress) return 1;
@@ -6,6 +7,10 @@ function getStatus(status) {
   if (status.isExpired) return 3;
 
   return 0;
+}
+
+function getCDNURL(url) {
+  return url + '!y';
 }
 
 export async function getSeminarList(options) {
@@ -24,7 +29,12 @@ export async function getSeminarList(options) {
       return {
         id: item.id,
         title: item.title,
-        company: item.com_id_name,
+        company: {
+          id: item.com_id,
+          name: item.com_id_name,
+          logo: getCDNURL(item.com_id_logosrc),
+          description: '',
+        },
         backgroundColor: colorArray[(i + left) % colorArray.length],
         university: item.school_id_name,
         address: item.address || item.tmp_field_name || '空中宣讲会',
@@ -36,6 +46,8 @@ export async function getSeminarList(options) {
           isOfficial: item.istop === 1,
           isInProgress: item.timestatus === 1,
         }),
+        source: '武汉理工大学学生就业指导中心',
+        positions: [],
       };
     }),
     left: left + (data.list.length % colorArray.length),
@@ -44,8 +56,34 @@ export async function getSeminarList(options) {
 
 export async function getSeminarDetail(options) {
   const { id } = options;
-  const data = await request('/preach/detail', {
+  const result = await request('/preach/detail', {
     id,
   });
-  console.log(data);
+
+  return {
+    id: result.id,
+    title: result.title,
+    company: {
+      id: result.comInfo.id,
+      name: result.comInfo.name,
+      logo: getCDNURL(result.comInfo.logo_src),
+      description: (!result.comInfo.city_name || result.comInfo.city_name === '市辖区' ? result.comInfo.province_name : result.comInfo.city_name) + ' ' + result.comInfo.xingzhi_id_name + ' ' + result.comInfo.business_name,
+      email: result.email,
+    },
+    university: result.school_id_name,
+    address: result.address || result.tmp_field_name || '空中宣讲会',
+    view: result.viewcount,
+    content: result.remarks,
+    tips: result.schoolwarn,
+    poster: result.haibao_id_src ? getCDNURL('https:' + result.haibao_id_src.linkpath) : '',
+    time: result.hold_date + ' ' + result.hold_starttime + '-' + result.hold_endtime,
+    status: getStatus({
+      isExpired: result.timestatus === 3,
+      isCancel: result.publish_status === 2,
+      isOfficial: result.istop === 1,
+      isInProgress: result.timestatus === 1,
+    }),
+    source: '武汉理工大学学生就业指导中心',
+    positions: unique(result.ProfessionalList.map(item => item.professional_id_name)),
+  };
 }
