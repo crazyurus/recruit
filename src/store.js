@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { getSeminarList, getSeminarDetail } from './service';
+import { getSeminarList, getSeminarDetail, getCompanyDetail } from './service';
 
 const store = createStore({
   state() {
@@ -8,6 +8,7 @@ const store = createStore({
       page: 1,
       left: 0,
       items: new Map(),
+      company: new Map(),
     };
   },
   actions: {
@@ -27,8 +28,16 @@ const store = createStore({
         id: payload.id,
       });
 
+      context.commit('saveCompany', result.company);
       context.commit('saveDetail', result);
-    }
+    },
+    async getCompanyDetail(context, payload) {
+      const result = await getCompanyDetail({
+        id: payload.id,
+      });
+
+      context.commit('saveCompany', result);
+    },
   },
   mutations: {
     resetList(state) {
@@ -40,16 +49,17 @@ const store = createStore({
       state.left = payload.left;
       state.page++;
       state.list = state.list.concat(payload.list.map(item => {
-        state.items.set(item.id, {
-          ...state.items.get(item.id),
-          ...item,
-        });
+        state.company.set(item.company.id, item.company);
+        state.items.set(item.id, item);
 
         return item.id;
       }));
     },
     saveDetail(state, payload) {
       state.items.set(payload.id, payload);
+    },
+    saveCompany(state, payload) {
+      state.company.set(payload.id, payload);
     },
   },
 });

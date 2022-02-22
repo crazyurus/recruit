@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "dayjs": "^1.10.7",
     "framework7": "^6.3.15",
     "framework7-vue": "^6.3.15",
     "vue": "^3.2.25",

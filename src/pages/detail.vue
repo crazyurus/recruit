@@ -83,9 +83,9 @@ export default {
         <div class="seminar-content_title">招聘专业</div>
         <div v-for="(position, index) in positions" :key="index">{{position}}</div>
       </template>
-      <template v-if="article.email">
+      <template v-if="article.contact.email">
         <div class="seminar-content_title">联系方式</div>
-        <a :href="'mailto:' + article.company.email">{{article.company.email}}</a>
+        <a :href="'mailto:' + article.contact.email">{{article.contact.email}}</a>
       </template>
       <template v-if="article.tips">
         <div class="seminar-content_title">本校提醒</div>
@@ -102,7 +102,13 @@ export default {
   </f7-page>
 </template>
 
-<style scoped>
+<style lang="less" scoped>
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .seminar-header {
   height: 80px;
   display: flex;
@@ -121,9 +127,7 @@ export default {
   line-height: 1.6;
   color: #fff;
   width: calc(100% - 16px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  .ellipsis();
 }
 
 .seminar-source {
@@ -193,15 +197,18 @@ export default {
 
 .seminar-company_content {
   flex-grow: 1;
+  overflow: hidden;
 }
 
 .seminar-company_title {
   font-size: 16px;
   margin-bottom: 4px;
+  .ellipsis();
 }
 
 .seminar-company_text {
   color: #646a73;
+  .ellipsis();
 }
 
 .seminar-content-after {
