@@ -56,10 +56,16 @@ const store = createStore({
       }));
     },
     saveDetail(state, payload) {
-      state.items.set(payload.id, payload);
+      state.items.set(payload.id, {
+        ...state.items.get(payload.id),
+        ...payload,
+      });
     },
     saveCompany(state, payload) {
-      state.company.set(payload.id, payload);
+      state.company.set(payload.id, {
+        ...state.company.get(payload.id),
+        ...payload,
+      });
     },
   },
 });

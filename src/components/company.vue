@@ -57,6 +57,7 @@ export default {
   transition: transform .2s;
   will-change: transform;
   transform-origin: center center;
+  -webkit-user-select: none;
   user-select: none;
 
   &:active {

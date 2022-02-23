@@ -55,7 +55,7 @@ export async function getSeminarList(options) {
         },
         backgroundColor: colorArray[(i + left) % colorArray.length],
         university: item.school_id_name,
-        address: item.address || item.tmp_field_name || '空中宣讲会',
+        address: item.address || item.tmp_field_name || '线上宣讲会',
         view: item.viewcount,
         time: item.hold_date + ' ' + item.hold_starttime + '-' + item.hold_endtime,
         status: getStatus({
@@ -84,7 +84,7 @@ export async function getSeminarDetail(options) {
     title: result.title,
     company: getCompany(result.comInfo),
     university: result.school_id_name,
-    address: result.address || result.tmp_field_name || '空中宣讲会',
+    address: result.address || result.tmp_field_name || '线上宣讲会',
     view: result.viewcount,
     content: result.remarks,
     tips: result.schoolwarn,
@@ -98,6 +98,7 @@ export async function getSeminarDetail(options) {
     }),
     contact: {
       email: result.email,
+      telephone: result.phone,
     },
     source: '武汉理工大学学生就业指导中心',
     positions: unique(result.ProfessionalList.map(item => item.professional_id_name)),
