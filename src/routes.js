@@ -4,6 +4,7 @@ const routes = [
   {
     path: '/',
     component: IndexPage,
+    keepAlive: true,
   },
   {
     path: '/detail/:id',
@@ -12,10 +13,6 @@ const routes = [
   {
     path: '/company/:id',
     asyncComponent: () => import('./pages/company.vue'),
-  },
-  {
-    path: '/map',
-    asyncComponent: () => import('./pages/map.vue'),
   },
 ];
 

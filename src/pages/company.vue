@@ -40,7 +40,7 @@ export default {
         </template>
         <template v-if="company.address">
           <div class="form-label">地址</div>
-          <a class="form-value" bindtap="openLocation">{{company.address}}</a>
+          <a class="form-value" :href="`https://apis.map.qq.com/uri/v1/marker?marker=coord:${company.position.latitude},${company.position.longitude};title:${company.name};addr:${company.address}`" target="_blank">{{company.address}}</a>
         </template>
         <div v-if="company.verifyTime" class="form-footer">该企业已于 {{company.verifyTime}} 通过审核</div>
       </template>
