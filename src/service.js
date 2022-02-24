@@ -28,6 +28,7 @@ function getCompany(result) {
     address: result.address,
     createTime: formatTimestamp(result.start_time),
     verifyTime: result.verify_time === 0 ? '' : formatTimestamp(result.verify_time),
+    license: result.license,
     position: {
       latitude: result.latitude,
       longitude: result.longitude,

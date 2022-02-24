@@ -22,6 +22,8 @@ export default {
       <template v-slot:content>
         <div class="form-label">企业名称</div>
         <div class="form-value">{{company.name}}</div>
+        <div class="form-label">统一社会信用代码</div>
+        <div class="form-value">{{company.license}}</div>
         <div class="form-label">企业类型</div>
         <div class="form-value">{{company.type}}</div>
         <div class="form-label">所在地区</div>
