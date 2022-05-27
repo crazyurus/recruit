@@ -1,5 +1,6 @@
 <script>
 import { f7 } from 'framework7-vue';
+import * as ics from 'ics';
 
 export default {
   props: {
@@ -22,6 +23,41 @@ export default {
         url: location.href,
         text: this.article.title,
       });
+    },
+    addToCalendar() {
+      const time = this.article.time.match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})-(\d{2}):(\d{2})$/);
+      const startTime = time.slice(1, 6).map(Number);
+      const endTime = [...time.slice(1, 4), ...time.slice(6, 8)].map(Number);
+      const event = {
+        start: startTime,
+        end: endTime,
+        title: this.article.title,
+        description: this.article.content.replace(/<[^>]+>/g, ''),
+        location: this.article.address,
+        url: location.href,
+        status: 'CONFIRMED',
+        busyStatus: 'BUSY',
+      };
+
+      if (this.article.contact.name && this.article.contact.email) {
+        event.organizer = {
+          name: this.article.contact.name,
+          email: this.article.contact.email,
+        };
+      }
+
+      ics.createEvent(event, (error, value) => {
+        if (!error) {
+          const blob = new Blob([value], {
+            type: 'text/calendar', 
+          });
+          const url = window.URL.createObjectURL(blob);
+          location.assign(url);
+        }
+      });
+    },
+    showAddressMap() {
+      //
     },
     openPoster() {
       f7.photoBrowser.create({
@@ -49,7 +85,7 @@ export default {
       </div>
     </div>
     <div class="seminar-info">
-      <div class="seminar-info-line">
+      <div class="seminar-info-line seminar-info-address" @click="addToCalendar">
         <img class="seminar-info-icon" src="../assets/icons/time.png" />
         <span>举办时间：{{article.time}}</span>
       </div>
@@ -57,7 +93,7 @@ export default {
         <img class="seminar-info-icon" src="../assets/icons/university.png" />
         <span>举办学校：{{article.university}}</span>
       </div>
-      <div v-if="article.address" class="seminar-info-line {{article.address === '线上宣讲会' ? '' : 'seminar-info-address'}}" bindtap="showAddressMap">
+      <div v-if="article.address" :class="article.address === '线上宣讲会' ? 'seminar-info-line' : 'seminar-info-line seminar-info-address'" @click="showAddressMap">
         <img class="seminar-info-icon" src="../assets/icons/address.png" />
         <span v-if="article.address == '线上宣讲会'">{{article.address}}</span>
         <span v-else>举办地点：{{article.address}}</span>
@@ -98,6 +134,7 @@ export default {
       </div>
     </div>
     <div class="seminar-share">
+      <div class="button" @click="addToCalendar">添加到日程</div>
       <div class="button" @click="share">分享给同学</div>
     </div>
   </f7-page>
@@ -240,7 +277,7 @@ export default {
 
 .seminar-share {
   text-align: center;
-  height: 100px;
+  height: 120px;
 }
 
 .seminar-share .button {
@@ -249,11 +286,15 @@ export default {
   height: 32px;
   font-size: 14px;
   line-height: 32px;
-  margin: 24px auto 0;
+  margin: 16px auto 0;
   border-radius: 2px;
   color: #fff;
   background-color: #45c8dc;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  &:first-child {
+    background-color: rgb(237, 157, 129);
+  }
 }
 
 .seminar-poster {

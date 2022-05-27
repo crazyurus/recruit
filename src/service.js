@@ -102,6 +102,7 @@ export async function getSeminarDetail(options) {
       isInProgress: result.timestatus === 1,
     }),
     contact: {
+      name: result.contacts,
       email: result.email,
       telephone: result.phone,
     },
