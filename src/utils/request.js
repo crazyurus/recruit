@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jsonpAdapter from 'axios-jsonp';
 
 const instance = axios.create({
   baseURL: 'https://a.jiuyeb.cn/mobile.php',
@@ -41,6 +42,15 @@ function request(url, data) {
   return instance({
     url,
     data,
+  });
+}
+
+export function jsonp(url) {
+  return axios({
+    method: 'GET',
+    url,
+    adapter: jsonpAdapter,
+    callbackParamName: 'callback',
   });
 }
 

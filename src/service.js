@@ -1,4 +1,4 @@
-import request from './utils/request';
+import request, { jsonp } from './utils/request';
 import { unique, formatTimestamp } from './utils/utils';
 
 function getStatus(status) {
@@ -119,4 +119,13 @@ export async function getCompanyDetail(options) {
   });
 
   return getCompany(result);
+}
+
+export async function getGeoLocation(address) {
+  const { data } = await jsonp('https://apis.map.qq.com/ws/geocoder/v1/?address=' + encodeURIComponent(address) + '&output=jsonp&key=BP7BZ-6FXRV-6CNP3-UDXK2-GJ36S-VFBN7');
+
+  return {
+    latitude: data.result.location.lat,
+    longitude: data.result.location.lng,
+  };
 }

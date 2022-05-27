@@ -1,6 +1,7 @@
 <script>
 import { f7 } from 'framework7-vue';
 import * as ics from 'ics';
+import { getGeoLocation } from '../service';
 
 export default {
   props: {
@@ -56,8 +57,10 @@ export default {
         }
       });
     },
-    showAddressMap() {
-      //
+    async showAddressMap() {
+      const { latitude, longitude } = await getGeoLocation(this.article.university + ',' + this.article.address);
+
+      location.assign(`https://apis.map.qq.com/uri/v1/marker?marker=coord:${latitude},${longitude};title:${this.article.university};addr:${this.article.address}`);
     },
     openPoster() {
       f7.photoBrowser.create({
