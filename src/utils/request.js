@@ -2,7 +2,7 @@ import axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
 
 const instance = axios.create({
-  baseURL: 'https://a.jiuyeb.cn/mobile.php',
+  baseURL: 'https://scc.whut.edu.cn/mobile.php',
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
