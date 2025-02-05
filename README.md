@@ -2,7 +2,7 @@
 
 掌上理工大就业招聘模块
 
-https://m.recruit.crazyurus.cn
+https://m.recruit.crazyurus.com
 
 `Vue` + `Vuex` + `Framework7` + `Vite`
 
